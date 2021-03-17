@@ -4,8 +4,8 @@ Les projets effectués durant ma troisième année à Epitech Paris.</br>
 </br>
 Liste des langages / frameworks / outils utilisés dans les projets :</br>
 
- - Application Web Mobile :</br>
- -- Area :</br>
+ - Application Web Mobile 
+ - Area :
  --- React.js, Node.js, Flutter</br></br>
  -- Dashboard :</br>
  --- Vue.js, Node.js</br></br>
