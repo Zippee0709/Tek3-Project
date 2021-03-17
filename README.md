@@ -1,8 +1,7 @@
 # Tek3-Project
 Les projets effectués durant ma troisième année à Epitech Paris.</br>
 
-</br>
-## Liste des langages / frameworks / outils utilisés dans les projets :</br>
+# Liste des langages / frameworks / outils utilisés dans les projets :
 
 # Application Web Mobile
  # Area :
