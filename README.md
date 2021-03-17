@@ -15,6 +15,5 @@ Liste des langages / frameworks / outils utilisés dans les projets :</br>
  - DevOps :</br>
  -- Docker, Kubernetes, Jenkins </br>
 
-</br>
  - Maths && Caesar :</br>
  -- Python3</br>
