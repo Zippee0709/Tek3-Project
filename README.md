@@ -13,7 +13,6 @@ Liste des langages / frameworks / outils utilisés dans les projets :</br>
  -- Epicture :</br>
  --- React Native </br></br>
 
-</br>
  - DevOps :</br>
  -- Docker, Kubernetes, Jenkins </br>
 
