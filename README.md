@@ -2,18 +2,23 @@
 Les projets effectués durant ma troisième année à Epitech Paris.</br>
 
 </br>
-Liste des langages / frameworks / outils utilisés dans les projets :</br>
+## Liste des langages / frameworks / outils utilisés dans les projets :</br>
 
- - Application Web Mobile </br>
- - Area :</br>
- --- React.js, Node.js, Flutter</br></br>
- -- Dashboard :</br>
- --- Vue.js, Node.js</br></br>
- -- Epicture :</br>
- --- React Native </br></br>
+# Application Web Mobile
+ # Area :
+  * React.js
+  * Node.js
+  * Flutter
+ # Dashboard :
+  * Vue.js
+  * Node.js
+ # Epicture :
+  * React Native
+ 
+ # DevOps :
+  * Docker
+  * Kubernetes
+  * Jenkins
 
- - DevOps :</br>
- -- Docker, Kubernetes, Jenkins </br>
-
- - Maths && Caesar :</br>
- -- Python3</br>
+ # Maths && Caesar :
+  * Python3
