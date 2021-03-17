@@ -1,0 +1,23 @@
+expr :: Parser Expr
+expr = add_sub
+    where
+        add_sub = binOp Add '+' mul_div <|> binOp Sub '-' mul_div <|> mul_div
+        mul_div = binOp Mul '*' factor <|> binOp Div '/' factor <|> factor
+        factor = parens <|> val
+        val = Val <$> parseDouble
+        parens = parseChar '(' *> expr <* parseChar ')'
+        binOp c o p = c <$> p <*> (parseChar o *> p)
+
+-- expr' :: Expr -> Parser Expr
+-- expr' = add_sub
+--     where
+--         add_sub = binOp Add '+' mul_div <|> binOp Sub '-' mul_div <|> mul_div
+--         mul_div = binOp Mul '*' factor <|> binOp Div '/' factor <|> factor
+--         factor = parens <|> val
+--         val = Val <$> parseDouble
+--         parens = parseChar '(' *> expr <* parseChar ')'
+--         binOp c o p = c <$> p <*> (parseChar o *> p)
+
+    
+combineExpr :: (a -> a -> b) -> Char -> Parser a -> Parser b
+combineExpr x1 sign x2 = x1 <$> x2 <*> (parseChar sign *> x2)

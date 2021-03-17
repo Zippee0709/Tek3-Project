@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+    jenkins:
+        build: ./
+        ports:
+            - 80:8080
+            - 50000:50000
+        volumes:
+            - jenkins_home:/var/jenkins_home
+            - ./my_marvin.yml:/var/jenkins_home/my_marvin.yml
+        environment:
+            - CASC_JENKINS_CONFIG=/var/jenkins_home/my_marvin.yml
+            - USER_CHOCOLATEEN_PASSWORD=test123
+            - USER_VAUGIE_G_PASSWORD=test123
+            - USER_I_DONT_KNOW_PASSWORD=test123
+            - USER_NASSO_PASSWORD=test123
+    
+volumes:
+    jenkins_home:

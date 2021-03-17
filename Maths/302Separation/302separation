@@ -1,0 +1,194 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2020
+## 301dannon
+## File description:
+## 301dannon
+##
+
+import sys, os
+import time
+import math
+import copy
+
+def printUsage():
+    print("USAGE\n\t./302separation file [n | p1 p2]\n \
+           DESCRIPTION\n \
+           \tfile\tfile that contains the list of Facebook connections\n\
+           \tn\tmaximum length of the paths\n \
+           \tpi\tname of someone in the file")
+
+class Separation:
+    def __init__(self):
+        self.file = 0
+        self.graph = 0
+        self.firstName = 0
+        self.secondName = 0
+
+    def init4argv(self, file, firstName, secondName):
+        try:
+            self.file = open(file, "r")
+            self.graph = Graph(float("inf"))
+            self.firstName = firstName
+            self.secondName = secondName
+            self.parseFile()
+            self.graph.findShortestPath(self.firstName, self.secondName)
+        except OSError:
+            raise OSError("Error: Read file failed.")
+
+    def init3argv(self, file, maxLengthPath):
+        try:
+            self.file = open(file, "r")
+            self.graph = Graph(int(maxLengthPath))
+            self.parseFile()
+            self.graph.printIndexListSorted()
+            self.graph.graphToMatrix()
+            self.graph.printMatrix()
+            self.graph.findAllPath()
+            self.graph.printShortestPathMatrix()
+        except OSError:
+            raise OSError("Error: Read file failed.")
+
+    def parseFile(self):
+        data = self.file.read()
+        phrases = data.split("\n")
+        for phrase in phrases:
+            if(phrase.find("is friends with")):
+                first = phrase[:phrase.find("is friends with") - 1]
+                second = phrase[phrase.find("is friends with") + len("is friends with") + 1:]
+                self.graph.addNodes(first, second)
+            else:
+                raise ValueError("Error: Invalid File, the key word 'is friends with' not found")
+
+class Node:
+    def __init__(self, id, weight):
+        self._id = id
+        self._weight = weight
+    
+    def getId(self):
+        return self._id
+
+    def getWeight(self):
+        return self._weight
+
+    def __str__(self):
+        return "{0}: {1}".format(self._id, self._weight)
+    
+    def __repr__(self):
+        return "Node(%s, %s)" % (self._id, self._weight)
+
+class Graph:
+    def __init__(self, maxLengthPath):
+        self.INF = float('inf')
+        self._maxLengthPath = maxLengthPath
+        self._graph = {}
+        self._matrix = []
+        self._matrixShortPath = []
+        self._vertice = 0
+        self._indexList = []
+
+    def checkExistanceNode(self, id):
+        if (id not in self._graph):
+            self._graph[id] = []
+            self._indexList.append(id)
+            self._vertice += 1
+
+    def addNodes(self, id, id2, weight = 1):
+        self.checkExistanceNode(id)
+        self.checkExistanceNode(id2)
+        self._graph[id].append(Node(id2, weight))
+        self._graph[id2].append(Node(id, weight))
+
+    def displayGraph(self):
+        for item in self._graph:
+            print("%s --> %s" % (item, self._graph[item]))
+
+    def findShortestPath(self, nodeStart, nodeEnd):
+        if (nodeStart not in self._graph or nodeEnd not in self._graph):
+            self.printDegreeSeparation(nodeStart, nodeEnd, -1)
+            return -1
+        if (nodeStart == nodeEnd):
+            self.printDegreeSeparation(nodeStart, nodeEnd, 0)
+            return 0
+        self.graphToMatrix()
+        self.findAllPath()
+        sortedList = sorted(self._indexList)
+        self.printDegreeSeparation(nodeStart, nodeEnd, self._matrixShortPath[sortedList.index(nodeStart)][sortedList.index(nodeEnd)])
+        return self._matrixShortPath[sortedList.index(nodeStart)][sortedList.index(nodeEnd)]
+
+    def mathematicalMatrix(self):
+        self._matrixShortPath = self._matrix.copy()
+        for i in range(0, len(self._matrixShortPath)):
+            for j in range(0, len(self._matrixShortPath[i])):
+                if (self._matrixShortPath[i][j] == 0 and i != j):
+                    self._matrixShortPath[i][j] = self.INF
+
+    def findAllPath(self):
+        self.mathematicalMatrix()
+        for k in range(0, self._vertice):
+            for i in range(0, self._vertice):
+                for j in range(0, self._vertice):
+                    res = self._matrixShortPath[i][k] + self._matrixShortPath[k][j]
+                    # if (self._matrixShortPath[i][k] == self.INF or self._matrixShortPath[k][j] == self.INF):
+                    #     continue
+                    # elif (res > self._maxLengthPath):
+                    #     self._matrixShortPath[i][j] = 0
+                    if (res < self._matrixShortPath[i][j]):
+                        self._matrixShortPath[i][j] = res
+        for i in range(0, len(self._matrixShortPath)):
+            for j in range(0, len(self._matrixShortPath[i])):
+                if (self._matrixShortPath[i][j] > self._maxLengthPath):
+                    self._matrixShortPath[i][j] = 0
+
+    def graphToMatrix(self):
+        i = 0
+        sortedIndexList = sorted(self._indexList)
+        myList = []
+        ## NOTE : Fait la matrice dans l'ordre croissant. Propre au 302
+        sortedGraph = sorted(self._graph.items())
+        ##
+        for item in sortedGraph:
+            myList.clear()
+            for index in sortedIndexList:
+                value = next((x for x in item[1] if x.getId() == index), False)
+                myList.append(0 if value == False else value.getWeight())
+            self._matrix.append(myList.copy())
+
+    def printMatrix(self):
+        for l in self._matrix:
+            print(" ".join(map(str, l)))
+        print("")
+
+    def printIndexList(self):
+        for index in self._indexList:
+            print(index)
+        print("")
+
+    def printIndexListSorted(self):
+        for index in sorted(self._indexList):
+            print(index)
+        print("")
+
+    def printShortestPathMatrix(self):
+        for l in self._matrixShortPath:
+            print(" ".join(map(str, l)))
+
+    def printDegreeSeparation(self, id, id2, degree):
+        print("Degree of separation between, %s and %s: %d" % (id, id2, degree))
+
+def main():
+    separation = Separation()
+    if (len(sys.argv) == 2 and sys.argv[1] == "-h"):
+        printUsage()
+    elif (len(sys.argv) == 4):
+        separation.init4argv(sys.argv[1], sys.argv[2], sys.argv[3])
+    elif (len(sys.argv) == 3):
+        separation.init3argv(sys.argv[1], sys.argv[2])
+    return 84
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except (ValueError, ZeroDivisionError, OSError) as ve:
+        print(ve)
+        sys.exit(84)
