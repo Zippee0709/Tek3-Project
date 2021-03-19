@@ -119,7 +119,7 @@ List<ServiceInfo> genInfoByName(List<dynamic> servicesName,
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => AreaWebView(
                   "GitLab Authentification",
-                  "https://gitlab.com/oauth/authorize?client_id=431aa4bc4e71c9e1937985be9021cbbf549b4fe79ba8e5e111d818d9bcc7151b&redirect_uri=https://area-junaifu-front.wonderful-goose-4.telebit.io/services?state=GitLab&response_type=code&state=GitLab&scope=api"))) // TODO: change link to FrontWeb OAuth2 of GitLab
+                  "https://gitlab.com/oauth/authorize?"))) // TODO: change link to FrontWeb OAuth2 of GitLab
         },
       ));
     } else if (name == "Trello") {
@@ -134,7 +134,7 @@ List<ServiceInfo> genInfoByName(List<dynamic> servicesName,
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => AreaWebView(
                         "Trello Authentification",
-                        "https://trello.com/1/authorize?expiration=30days&name=AREA-EPITECH&scope=read,write,account&response_type=token&key=ff4c32d87be5508c24f6390892f7d7a5&return_url=https://area-junaifu-front.wonderful-goose-4.telebit.io/services?state=Trello")))
+                        "https://trello.com/1/authorize?")))
               }));
     } else if (name == "Discord") {
       services.add(ServiceInfo(
@@ -148,7 +148,7 @@ List<ServiceInfo> genInfoByName(List<dynamic> servicesName,
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => AreaWebView(
                         "Discord Authentification",
-                        "https://discord.com/api/oauth2/authorize?client_id=815209494161260555&permissions=8&redirect_uri=https%3A%2F%2Farea-junaifu-front.wonderful-goose-4.telebit.io%2Fservices%3Fstate%3DDiscord&response_type=code&scope=bot%20identify%20email%20guilds%20guilds.join&response_type=code")))
+                        "https://discord.com/api/oauth2/authorize?")))
               }));
     } else if (name == "Twilio") {
       services.add(ServiceInfo(
@@ -200,8 +200,8 @@ List<ServiceInfo> genInfoByName(List<dynamic> servicesName,
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => AreaWebView(
                         "GitHub Authentification",
-                        "https://github.com/login/oauth/authorize?client_id=0123714cfdd44c79b26d&redirect_uri=https://area-junaifu-front.wonderful-goose-4.telebit.io/services?state=GitHub&response_type=code&scope=user,repo,admin:repo_hook,delete_repo"
-                            "https://github.com/login/oauth/authorize?client_id=0123714cfdd44c79b26d&redirect_uri=https://area-junaifu-front.wonderful-goose-4.telebit.io/services?state=GitHub&response_type=code&scope=user,repo,admin:repo_hook,delete_repo")))
+                        "https://github.com/login/oauth/authorize?"
+                            "https://github.com/login/oauth/authorize?")))
               } // TODO: change link to FrontWeb OAuth2 of GitHub
           ));
     } else if (name == "Slack") {
@@ -216,7 +216,7 @@ List<ServiceInfo> genInfoByName(List<dynamic> servicesName,
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => AreaWebView(
                         "Slack Authentification",
-                        "https://slack.com/oauth/v2/authorize?client_id=1797353003221.1797494244069&scope=incoming-webhook,app_mentions:read,chat:write,chat:write.customize,files:read,files:write&state=Slack&redirect_uri=https://area-junaifu-front.wonderful-goose-4.telebit.io/services")))
+                        "https://slack.com/oauth/v2/authorize?")))
               } // TODO: change link to FrontWeb OAuth2 of Slack
           ));
     }
